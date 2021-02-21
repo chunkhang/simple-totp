@@ -1,65 +1,64 @@
 from contextlib import contextmanager
 from datetime import datetime
-import pyotp
-import time
-import sys
 import math
+import os
+import pyotp
+import sys
+import time
+import yaml
 
-ENTRIES = [
-        {
-            'identifier': 'facebook:hello',
-            'secret': 'test',
-            },
-        {
-            'identifier': 'google:banana',
-            'secret': 'funny',
-            },
-        ]
+CONFIG_FILENAME = '.totp.yml'
+DEFAULT_TOTP_INTERVAL = 30
+DEFAULT_TOTP_DIGITS = 6
 
 
 def main():
-    with wrapper():
-        items = []
-        for entry in ENTRIES:
-            item = {}
-            item['identifier'] = entry['identifier']
-            item['totp'] = pyotp.TOTP(entry['secret'])
-            items.append(item)
+    # Read config data
+    home = os.path.expanduser('~')
+    config_path = os.path.join(home, CONFIG_FILENAME)
+    with open(config_path) as file:
+        config = yaml.full_load(file)
 
-        # Calculate max width for each column
-        identifier_width = max(map(lambda item: len(item['identifier']), items))
-        code_width = max(map(lambda item: item['totp'].digits, items))
-        seconds_width = max(map(lambda item: len(str(item['totp'].interval)), items))
+    # Parse config data
+    totps = []
+    for document in config['totp']:
+        totp = pyotp.TOTP(
+                s=document['secret'],
+                interval=document['interval'] if 'interval' in document else DEFAULT_TOTP_INTERVAL,
+                digits=document['digits'] if 'digits' in document else DEFAULT_TOTP_DIGITS,
+                issuer=document['issuer'],
+                name=document['name'],
+                )
+        totps.append(totp)
 
+    # Calculate max width for each column
+    identifier_width = max(map(lambda totp: len(get_totp_identifier(totp)), totps))
+    code_width = max(map(lambda totp: totp.digits, totps))
+    seconds_width = max(map(lambda totp: len(str(totp.interval)), totps))
+
+    try:
         while True:
-            for i, item in enumerate(items):
-                identifier = item['identifier']
-                code = item['totp'].now()
-                time_left = item['totp'].interval - (datetime.now().timestamp() % item['totp'].interval)
-                seconds = str(math.trunc(time_left))
-
+            for i, totp in enumerate(totps):
+                seconds_left = math.trunc(totp.interval - (datetime.now().timestamp() % totp.interval))
                 row = '{} | {} | {}'.format(
-                        identifier.ljust(identifier_width),
-                        seconds.rjust(seconds_width, '0'),
-                        code.ljust(code_width),
+                        get_totp_identifier(totp).ljust(identifier_width),
+                        str(seconds_left).rjust(seconds_width),
+                        totp.now().ljust(code_width),
                         )
                 sys.stdout.write(f'{row}\n')
-
             sys.stdout.flush()
-
             # Move cursor up until we reach the top
-            sys.stdout.write('\033[F' * len(items))
-
+            sys.stdout.write('\033[F' * len(totps))
             time.sleep(1)
-
-
-# Setup and teardown for curses
-@contextmanager
-def wrapper():
-    try:
-        yield
     except KeyboardInterrupt:
         pass
+
+
+def get_totp_identifier(totp):
+    return '{}:{}'.format(
+            totp.issuer,
+            totp.name
+            )
 
 
 if __name__ == '__main__':

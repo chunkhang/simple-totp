@@ -41,3 +41,7 @@ install:
 # Install package from Test PyPI
 install-test:
 	pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ simple-totp
+
+# Uninstall package
+uninstall:
+	pip uninstall simple-totp

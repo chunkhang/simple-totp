@@ -12,6 +12,7 @@ DEFAULT_TOTP_NAME = '-'
 DEFAULT_TOTP_INTERVAL = 30
 DEFAULT_TOTP_DIGITS = 6
 COLUMN_SEPARATOR = ' | '
+REFRESH_RATE = 250  # ms
 
 
 def main():
@@ -81,7 +82,7 @@ def main():
             sys.stdout.flush()
             # Move cursor up until we reach the top
             sys.stdout.write('\033[F' * len(totps))
-            time.sleep(1)
+            time.sleep(REFRESH_RATE / 1000)
     except KeyboardInterrupt:
         # Keep quiet when quitting
         pass

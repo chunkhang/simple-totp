@@ -26,41 +26,41 @@ def main():
     totps = []
     for document in config['totp']:
         totp = pyotp.TOTP(
-                s=document['secret'],
-                interval=document['interval'] if 'interval' in document else DEFAULT_TOTP_INTERVAL,
-                digits=document['digits'] if 'digits' in document else DEFAULT_TOTP_DIGITS,
-                issuer=document['issuer'] if 'issuer' in document else DEFAULT_TOTP_ISSUER,
-                name=document['name'] if 'name' in document else DEFAULT_TOTP_NAME,
-                )
+            s=document['secret'],
+            interval=document['interval'] if 'interval' in document else DEFAULT_TOTP_INTERVAL,
+            digits=document['digits'] if 'digits' in document else DEFAULT_TOTP_DIGITS,
+            issuer=document['issuer'] if 'issuer' in document else DEFAULT_TOTP_ISSUER,
+            name=document['name'] if 'name' in document else DEFAULT_TOTP_NAME,
+        )
         totps.append(totp)
 
     # Helper functions to set up columns for a totp row
     column_helpers = [
-            # Issuer
-            {
-                'width': lambda totp: len(totp.issuer),
-                'value': lambda totp: totp.issuer,
-                'format': lambda value, width: value.ljust(width),
-                },
-            # Name
-            {
-                'width': lambda totp: len(totp.name),
-                'value': lambda totp: totp.name,
-                'format': lambda value, width: value.ljust(width),
-                },
-            # Seconds left
-            {
-                'value': lambda totp: math.trunc(totp.interval - (datetime.now().timestamp() % totp.interval)),
-                'width': lambda totp: len(str(totp.interval)),
-                'format': lambda value, width: str(value).rjust(width),
-                },
-            # Code
-            {
-                'value': lambda totp: totp.now(),
-                'width': lambda totp: totp.digits,
-                'format': lambda value, width: value.ljust(width),
-                },
-            ]
+        # Issuer
+        {
+            'width': lambda totp: len(totp.issuer),
+            'value': lambda totp: totp.issuer,
+            'format': lambda value, width: value.ljust(width),
+        },
+        # Name
+        {
+            'width': lambda totp: len(totp.name),
+            'value': lambda totp: totp.name,
+            'format': lambda value, width: value.ljust(width),
+        },
+        # Seconds left
+        {
+            'value': lambda totp: math.trunc(totp.interval - (datetime.now().timestamp() % totp.interval)),
+            'width': lambda totp: len(str(totp.interval)),
+            'format': lambda value, width: str(value).rjust(width),
+        },
+        # Code
+        {
+            'value': lambda totp: totp.now(),
+            'width': lambda totp: totp.digits,
+            'format': lambda value, width: value.ljust(width),
+        },
+    ]
 
     # Calculate maximum width for all columns
     column_widths = []

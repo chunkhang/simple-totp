@@ -83,7 +83,12 @@ def main():
             sys.stdout.write('\033[F' * len(totps))
             time.sleep(1)
     except KeyboardInterrupt:
+        # Keep quiet when quitting
         pass
+    finally:
+        # Make sure whatever has been printed remains
+        sys.stdout.write('\n' * len(totps))
+        sys.stdout.flush()
 
 
 if __name__ == '__main__':

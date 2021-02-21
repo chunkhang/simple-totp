@@ -1,3 +1,3 @@
 # simple-totp
 
-> A simple totp cli
+> A simple TOTP CLI

@@ -11,7 +11,7 @@ DEFAULT_TOTP_ISSUER = '-'
 DEFAULT_TOTP_NAME = '-'
 DEFAULT_TOTP_INTERVAL = 30
 DEFAULT_TOTP_DIGITS = 6
-COLUMN_SEPARATOR = '|'
+COLUMN_SEPARATOR = ' | '
 
 
 def main():
@@ -33,47 +33,49 @@ def main():
                 )
         totps.append(totp)
 
-    # Getter functions to calculate column value and width
-    # Each totp row will have these columns
-    column_getters = [
+    # Helper functions to set up columns for a totp row
+    column_helpers = [
             # Issuer
             {
-                'value': lambda totp: totp.issuer,
                 'width': lambda totp: len(totp.issuer),
+                'value': lambda totp: totp.issuer,
+                'format': lambda value, width: value.ljust(width),
                 },
             # Name
             {
-                'value': lambda totp: totp.name,
                 'width': lambda totp: len(totp.name),
+                'value': lambda totp: totp.name,
+                'format': lambda value, width: value.ljust(width),
                 },
             # Seconds left
             {
-                'value': lambda totp: str(math.trunc(totp.interval - (datetime.now().timestamp() % totp.interval))),
+                'value': lambda totp: math.trunc(totp.interval - (datetime.now().timestamp() % totp.interval)),
                 'width': lambda totp: len(str(totp.interval)),
+                'format': lambda value, width: str(value).rjust(width),
                 },
             # Code
             {
                 'value': lambda totp: totp.now(),
                 'width': lambda totp: totp.digits,
+                'format': lambda value, width: value.ljust(width),
                 },
             ]
 
     # Calculate maximum width for all columns
     column_widths = []
-    for getter in column_getters:
-        getter['width'](totp)
-        widths = map(lambda totp: getter['width'](totp), totps)
+    for helper in column_helpers:
+        widths = map(lambda totp: helper['width'](totp), totps)
         column_widths.append(max(widths))
 
     try:
         while True:
             for totp in totps:
-                values = map(lambda getter: getter['value'](totp), column_getters)
+                values = map(lambda helper: helper['value'](totp), column_helpers)
                 columns = []
                 for i, value in enumerate(values):
-                    column = value.ljust(column_widths[i])
+                    column = column_helpers[i]['format'](value, column_widths[i])
                     columns.append(column)
-                row = f' {COLUMN_SEPARATOR} '.join(columns)
+                row = COLUMN_SEPARATOR.join(columns)
                 sys.stdout.write(row)
                 sys.stdout.write('\n')
             sys.stdout.flush()

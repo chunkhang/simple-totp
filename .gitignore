@@ -1,3 +1,4 @@
 .python-version
 dist/
 simple_totp.egg-info/
+__pycache__/

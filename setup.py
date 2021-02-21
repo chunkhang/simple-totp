@@ -12,11 +12,17 @@ setuptools.setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
-    packages=setuptools.find_packages(),
     python_requires='>=3',
+    packages=[
+        'src'
+    ],
+    install_requires=[
+        'pyotp>=2.6.0',
+        'PyYAML>=5.4.1',
+    ],
     entry_points={
         'console_scripts': [
-            'otp=main:main'
+            'otp=src.main:main'
         ]
     }
 )

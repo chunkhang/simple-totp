@@ -12,6 +12,7 @@ setuptools.setup(
     author_email='chunkhang@gmail.com',
     description=cli.DESCRIPTION,
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/chunkhang/simple-totp',
     classifiers=[
         'Programming Language :: Python :: 3',

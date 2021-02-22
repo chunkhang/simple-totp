@@ -6,7 +6,7 @@ import sys
 import time
 import yaml
 
-CONFIG_FILENAME = '.simple-totp.yml'
+CONFIG_FILENAME = '.otp.yml'
 DEFAULT_TOTP_ISSUER = '-'
 DEFAULT_TOTP_NAME = '-'
 DEFAULT_TOTP_INTERVAL = 30

@@ -35,7 +35,7 @@ is working properly:
 
 ```yaml
 totp:
-  - secret: 123
+  - secret: 7TO66UM5PZ2M5CB2GWZMYZX5YAVWATQX
 ```
 
 To generate multiple TOTP tokens with proper namespacing:
@@ -44,10 +44,10 @@ To generate multiple TOTP tokens with proper namespacing:
 totp:
   - issuer: google
     name: test@example.com
-    secret: 123
+    secret: 7TO66UM5PZ2M5CB2GWZMYZX5YAVWATQX
   - issuer: facebook
     name: test@example.com
-    secret: 456
+    secret: HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ
 ```
 
 By default, `otp` generates 6-digit TOTP tokens where the refresh
@@ -58,7 +58,7 @@ behavior, you may try the following:
 totp:
   - issuer: google
     name: test@example.com
-    secret: 123
+    secret: 7TO66UM5PZ2M5CB2GWZMYZX5YAVWATQX
     digits: 10
     interval: 60
 ```

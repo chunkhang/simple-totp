@@ -48,7 +48,7 @@ CONFIGURATION
 
         ```
         totp:
-          - secret: 123
+          - secret: 7TO66UM5PZ2M5CB2GWZMYZX5YAVWATQX
         ```
 
     To generate multiple TOTP tokens with proper namespacing:
@@ -57,10 +57,10 @@ CONFIGURATION
         totp:
           - issuer: google
             name: test@example.com
-            secret: 123
+            secret: 7TO66UM5PZ2M5CB2GWZMYZX5YAVWATQX
           - issuer: facebook
             name: test@example.com
-            secret: 456
+            secret: HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ
         ```
 
     By default, `otp` generates {DEFAULT_TOTP_DIGITS}-digit TOTP tokens where the refresh
@@ -71,7 +71,7 @@ CONFIGURATION
         totp:
           - issuer: google
             name: test@example.com
-            secret: 123
+            secret: 7TO66UM5PZ2M5CB2GWZMYZX5YAVWATQX
             digits: 10
             interval: 60
         ```

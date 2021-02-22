@@ -8,8 +8,11 @@ import pyotp
 import yaml
 
 VERSION = '1.0.0'
+DESCRIPTION = 'A simple TOTP CLI'
 
+CONFIG_DIRECTORY = os.path.expanduser('~')
 CONFIG_FILENAME = '.otp.yml'
+CONFIG_PATH = os.path.join(CONFIG_DIRECTORY, CONFIG_FILENAME)
 
 DEFAULT_TOTP_ISSUER = '-'
 DEFAULT_TOTP_NAME = '-'
@@ -20,12 +23,77 @@ COLUMN_SEPARATOR = ' | '
 
 REFRESH_RATE = 250  # ms
 
+USAGE = f'''
+USAGE
+
+    otp [FLAG]
+
+DESCRIPTION
+
+    {DESCRIPTION}
+
+FLAGS
+
+    -v, --version        print version
+    -h, --help           display this help
+
+CONFIGURATION
+
+    A configuration file in the following path is expected:
+
+        {CONFIG_PATH}
+
+    If it is not present, you may create the file with this minimal
+    configuration to verify that `otp` is working:
+
+        ```
+        totp:
+          - secret: 123
+        ```
+
+    To generate multiple TOTP tokens with proper namespacing:
+
+        ```
+        totp:
+          - issuer: google
+            name: test@example.com
+            secret: 123
+          - issuer: facebook
+            name: test@example.com
+            secret: 456
+        ```
+
+    By default, `otp` generates {DEFAULT_TOTP_DIGITS}-digit TOTP tokens where the refresh
+    interval is every {DEFAULT_TOTP_INTERVAL} seconds. If you need to override this
+    behavior, you may try the following:
+
+        ```
+        totp:
+          - issuer: google
+            name: test@example.com
+            secret: 123
+            digits: 10
+            interval: 60
+        ```
+'''.strip()
+
 
 def main():
+    if len(sys.argv) > 1:
+        flag = sys.argv[1]
+        if flag == '-v' or flag == '--version':
+            print(VERSION)
+            sys.exit(0)
+        if flag == '-h' or flag == '--help':
+            print(USAGE)
+            sys.exit(0)
+        print(f'unknown flag: "{flag}"')
+        print()
+        print(USAGE)
+        sys.exit(1)
+
     # Read config data
-    home = os.path.expanduser('~')
-    config_path = os.path.join(home, CONFIG_FILENAME)
-    with open(config_path) as file:
+    with open(CONFIG_PATH) as file:
         config = yaml.full_load(file)
 
     # Parse config data

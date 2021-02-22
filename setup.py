@@ -10,7 +10,7 @@ setuptools.setup(
     version=cli.VERSION,
     author='Marcus Mu',
     author_email='chunkhang@gmail.com',
-    description='A simple TOTP CLI',
+    description=cli.DESCRIPTION,
     long_description=long_description,
     url='https://github.com/chunkhang/simple-totp',
     classifiers=[

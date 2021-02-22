@@ -18,7 +18,7 @@ setuptools.setup(
     ],
     python_requires='>=3',
     packages=[
-        'src'
+        'otp'
     ],
     install_requires=[
         'pyotp>=2.6.0',
@@ -26,7 +26,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'otp=src.main:main'
+            'otp=otp.main:main'
         ]
     }
 )

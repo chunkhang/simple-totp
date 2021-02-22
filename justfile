@@ -26,8 +26,17 @@ build:
 upload:
 	twine upload dist/*
 
+# Tag current version and push to remote repository
+tag:
+	#!/usr/bin/env sh
+	set -euxo pipefail
+	version=$(python -c 'from otp import cli; print(cli.VERSION)')
+	git tag "$version"
+	git push --tags
+
 # Build and upload to PyPI
 publish:
 	just clean
 	just build
 	just upload
+	just tag

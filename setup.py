@@ -28,7 +28,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'otp=otp.main:main'
+            'otp=otp.cli:main'
         ]
     }
 )

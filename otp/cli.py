@@ -23,7 +23,7 @@ COLUMN_SEPARATOR = ' | '
 
 REFRESH_RATE = 250  # ms
 
-USAGE = f'''
+HELP = f'''
 USAGE
 
     otp [FLAG]
@@ -85,17 +85,15 @@ def main():
             print(VERSION)
             sys.exit(0)
         if flag == '-h' or flag == '--help':
-            print(USAGE)
+            print(HELP)
             sys.exit(0)
         print(f'error: unknown flag "{flag}"')
-        print()
-        print(USAGE)
         sys.exit(1)
 
     if not os.path.exists(CONFIG_PATH):
         print('error: missing configuration file')
         print()
-        print('Try `otp --help` to learn how to set it up.')
+        print('See `otp --help` to learn how to set it up.')
         sys.exit(1)
 
     # Read config data

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Print version
 - Display help
+- Check whether configuration file is missing
 ### Changed
 - Config filename should now be `.otp.yml` instead of `.simple-totp.yml` 
 

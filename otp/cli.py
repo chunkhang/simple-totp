@@ -87,9 +87,15 @@ def main():
         if flag == '-h' or flag == '--help':
             print(USAGE)
             sys.exit(0)
-        print(f'unknown flag: "{flag}"')
+        print(f'error: unknown flag "{flag}"')
         print()
         print(USAGE)
+        sys.exit(1)
+
+    if not os.path.exists(CONFIG_PATH):
+        print('error: missing configuration file')
+        print()
+        print('Try `otp --help` to learn how to set it up.')
         sys.exit(1)
 
     # Read config data

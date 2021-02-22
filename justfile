@@ -6,6 +6,14 @@ alias help := list
 list:
 	@just --list
 
+# Install dependencies
+setup:
+	pip install --requirement requirements.txt
+
+# Install package locally
+install:
+	pip install --editable .
+
 # Remove distribution archives
 clean:
 	rm -rf build/ dist/ simple_totp.egg-info/ __pycache__/
@@ -23,7 +31,3 @@ publish:
 	just clean
 	just build
 	just upload
-
-# Install package locally
-install:
-	pip install --editable .

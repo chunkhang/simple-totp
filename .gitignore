@@ -2,3 +2,4 @@
 dist/
 simple_totp.egg-info/
 __pycache__/
+build/

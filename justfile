@@ -12,17 +12,7 @@ clean:
 
 # Generate distribution archives
 build:
-	python setup.py sdist
-
-# Upload distribution archives to Test PyPI
-upload-test:
-	twine upload --repository testpypi dist/*
-
-# Build and upload to Test PyPI
-publish-test:
-	just clean
-	just build
-	just upload-test
+	python setup.py sdist bdist_wheel
 
 # Upload distribution archives to PyPI
 upload:
@@ -37,11 +27,3 @@ publish:
 # Install package locally
 install:
 	pip install --editable .
-
-# Install package from Test PyPI
-install-test:
-	pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ simple-totp
-
-# Uninstall package
-uninstall:
-	pip uninstall simple-totp

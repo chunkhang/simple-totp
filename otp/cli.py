@@ -1,17 +1,23 @@
 from datetime import datetime
 import math
 import os
-import pyotp
 import sys
 import time
+
+import pyotp
 import yaml
 
+VERSION = '1.0.0'
+
 CONFIG_FILENAME = '.otp.yml'
+
 DEFAULT_TOTP_ISSUER = '-'
 DEFAULT_TOTP_NAME = '-'
 DEFAULT_TOTP_INTERVAL = 30
 DEFAULT_TOTP_DIGITS = 6
+
 COLUMN_SEPARATOR = ' | '
+
 REFRESH_RATE = 250  # ms
 
 

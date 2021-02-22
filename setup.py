@@ -1,11 +1,13 @@
 import setuptools
 
+from otp import cli
+
 with open('README.md', 'r', encoding='utf-8') as file:
     long_description = file.read()
 
 setuptools.setup(
     name='simple-totp',
-    version='1.0.0',
+    version=cli.VERSION,
     author='Marcus Mu',
     author_email='chunkhang@gmail.com',
     description='A simple TOTP CLI',

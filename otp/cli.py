@@ -7,7 +7,7 @@ import time
 import pyotp
 import yaml
 
-VERSION = '1.1.0rc1'
+VERSION = '1.1.0rc2'
 DESCRIPTION = 'A simple TOTP CLI'
 
 CONFIG_DIRECTORY = os.path.expanduser('~')

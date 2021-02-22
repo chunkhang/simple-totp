@@ -54,8 +54,8 @@ totp:
     secret: HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ
 ```
 
-By default, `otp` generates 6-digit TOTP tokens where the refresh
-interval is every 30 seconds. If you need to override this
+By default, `simple-totp` generates 6-digit TOTP tokens where the
+refresh interval is every 30 seconds. If you need to override this
 behavior, you may try the following:
 
 ```yaml

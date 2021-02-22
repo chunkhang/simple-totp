@@ -8,6 +8,10 @@ Tired of fumbling around with Google Authenticator just to generate a simple
 and you are ready to go. `simple-totp` offers nothing fancy beyond printing out
 TOTP tokens on the terminal.
 
+## Demonstration
+
+![demonstration](https://i.postimg.cc/hGcCb8HC/demo-min.gif)
+
 ## Installation
 
 It should be quite easy to install `simple-totp`, provided you have python >= 3.

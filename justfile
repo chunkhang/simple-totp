@@ -14,6 +14,10 @@ setup:
 install:
 	pip install --editable .
 
+# Lint package
+lint:
+	@flake8
+
 # Remove distribution archives
 clean:
 	rm -rf build/ dist/ simple_totp.egg-info/ __pycache__/
@@ -36,6 +40,7 @@ tag:
 
 # Build and upload to PyPI
 publish:
+	just lint
 	just clean
 	just build
 	just upload

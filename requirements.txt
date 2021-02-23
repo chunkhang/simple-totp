@@ -1,2 +1,4 @@
 pyotp==2.6.0
 PyYAML==5.4.1
+
+flake8==3.8.4

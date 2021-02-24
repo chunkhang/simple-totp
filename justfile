@@ -1,5 +1,3 @@
-cwd := invocation_directory()
-
 alias help := list
 
 # List available recipes

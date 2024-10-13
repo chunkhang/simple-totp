@@ -10,7 +10,7 @@ TOTP tokens on the terminal.
 
 ## Demonstration
 
-![demonstration](https://i.postimg.cc/hGcCb8HC/demo-min.gif)
+![demonstration](./img/demo.gif)
 
 ## Installation
 
